@@ -1,0 +1,38 @@
+<p>Prueba!</p>
+
+<country-search-input placeholder="Bucar país." ></country-search-input>
+<country-list [countries]="countries" ></country-list>
+<button class="btn btn-primary" (click)="ordenar(numeros())" >
+  Ordenar
+</button>
+<div>
+
+  <button (click)="incremnet()">increntar</button>
+</div>
+
+<p>{{ count()}}</p>
+
+<p>{{usuario().nombre}}</p>
+<p>{{usuario().edad}}</p>
+<div>
+  <button class="btn btn-primary" (click)="cambiar()" >
+  Cambiar.
+</button>
+@for (item of usuario() | keyvalue; track item.key) {
+    <p>{{ item.key }}: {{ item.value }}</p>
+
+  }
+</div>
+<p>{{usuario().edad}}</p>
+
+<p>Usuario Dos.</p>
+<div>
+  <ul>
+    @for (item of usuarioDos().hobbies; track $index) {
+      <li>{{item}}</li>
+    }
+  </ul>
+</div>
+
+
+
