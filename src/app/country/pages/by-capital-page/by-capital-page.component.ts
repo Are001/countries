@@ -2,7 +2,8 @@ import { Component, inject, signal } from '@angular/core';
 import { SearchInputComponent } from "../../../shared/components/search-input/search-input.component";
 import { ListComponent } from "../../list/list.component";
 import { CountryService } from '../../services/country';
-import { Country, RESTCountry } from '../../interfaces/restCountry';
+import { Country, RESTCountry, Data } from '../../interfaces/restCountry';
+import { CountryMapper } from '../../mapper/country.mapper';
 
 
 @Component({
@@ -18,8 +19,9 @@ export class ByCapitalPageComponent {
   isLoading= signal(false);
   isError = signal<string | null>(null)
   //countries = signal<RESTCountry>()
-  //countries: Country[] = [];
+
   countries= signal<Country[]>([])
+  //countries = signal<RESTCountry[]>([])
 
   onSearch(query: string) {
 
@@ -27,10 +29,14 @@ export class ByCapitalPageComponent {
       subscribe({
         next: (resp) => {
           this.isLoading.set(false);
-          this.countries.set(resp)
+          this.countries.set(resp.data.objects)
+          //this.countries.set(resp)
           //this.countries = resp.data.objects;
-          console.log(this.countries());
-          console.log( resp);
+          const c = CountryMapper.mapRestCountryArrayToCountryArray(resp.data.objects)
+
+          //console.log(this.countries());
+          //console.log( resp);
+          console.log(c);
         },
         error: (err) => {
           console.error(err);

@@ -22,7 +22,8 @@ export class CountryService {
       Authorization: `Bearer ${API_KEY}`
     });
 
-    return this.http.get<Country[]>(
+    return this.http.get<RESTCountry>(
+   //return this.http.get<Country []>(
       `${API_URL}/capitals?q=${encodeURIComponent(query)}`, { headers }
     );
 

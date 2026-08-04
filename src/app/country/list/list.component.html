@@ -8,7 +8,7 @@
         <th>Nombre</th>
         <th>Capital</th>
         <th>Población</th>
-        <th></th>
+        <th>Más información.</th>
       </tr>
     </thead>
     <tbody>
@@ -19,6 +19,7 @@
         <td>{{country.names.common}}</td>
          <td>{{country.capitals[0]?.name}}</td>
          <td>{{country.population }}</td>
+         <td><a class="link-primary cursor-pointer" >Más información.</a></td>
       </tr>
       } @empty {
       }
