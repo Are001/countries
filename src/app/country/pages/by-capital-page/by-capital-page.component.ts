@@ -20,8 +20,8 @@ export class ByCapitalPageComponent {
   isError = signal<string | null>(null)
   //countries = signal<RESTCountry>()
 
-  countries= signal<Country[]>([])
-  //countries = signal<RESTCountry[]>([])
+  //countries= signal<Country[]>([])
+  countries = signal<RESTCountry[]>([])
 
   onSearch(query: string) {
 
@@ -29,7 +29,7 @@ export class ByCapitalPageComponent {
       subscribe({
         next: (resp) => {
           this.isLoading.set(false);
-          this.countries.set(resp.data.objects)
+          this.countries.set(resp)
           //this.countries.set(resp)
           //this.countries = resp.data.objects;
           const c = CountryMapper.mapRestCountryArrayToCountryArray(resp.data.objects)
