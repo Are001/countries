@@ -27,16 +27,16 @@ export class ByCapitalPageComponent {
 
     this.countryService.searchByCapital(query).
       subscribe({
-        next: (resp) => {
+        next: (resp:any) => {
           this.isLoading.set(false);
           this.countries.set(resp)
           //this.countries.set(resp)
           //this.countries = resp.data.objects;
-          const c = CountryMapper.mapRestCountryArrayToCountryArray(resp.data.objects)
+          //const c = CountryMapper.mapRestCountryArrayToCountryArray(resp.data.objects)
 
           //console.log(this.countries());
           //console.log( resp);
-          console.log(c);
+          //console.log(c);
         },
         error: (err) => {
           console.error(err);
