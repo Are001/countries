@@ -1,6 +1,7 @@
+
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { Country, RESTCountry } from '../interfaces/restCountry';
 import type{ CountryProyect } from '../interfaces/countryProyect.interface';
 import { CountryMapper } from '../mapper/country.mapper';
@@ -24,10 +25,12 @@ export class CountryService {
       Authorization: `Bearer ${API_KEY}`
     });
 
-    return this.http.get<RESTCountry[]>(
+    return this.http.get<RESTCountry>(
+
    //return this.http.get<Country []>(
       `${API_URL}/capitals?q=${encodeURIComponent(query)}`, { headers }
     ).pipe(
+
       map( restCountries =>CountryMapper.mapRestCountryArrayToCountryArray(restCountries))
     );
 

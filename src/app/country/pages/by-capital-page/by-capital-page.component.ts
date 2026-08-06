@@ -2,8 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { SearchInputComponent } from "../../../shared/components/search-input/search-input.component";
 import { ListComponent } from "../../list/list.component";
 import { CountryService } from '../../services/country';
-import { Country, RESTCountry, Data } from '../../interfaces/restCountry';
-import { CountryMapper } from '../../mapper/country.mapper';
+import { CountryProyect } from '../../interfaces/countryProyect.interface';
 
 
 @Component({
@@ -16,21 +15,28 @@ export class ByCapitalPageComponent {
 
   countryService = inject(CountryService);
 
-  isLoading= signal(false);
+  isLoading = signal(false);
   isError = signal<string | null>(null)
   //countries = signal<RESTCountry>()
 
   //countries= signal<Country[]>([])
-  countries = signal<RESTCountry[]>([])
+
+  //usando map para las interfaces
+  countries = signal<CountryProyect[]>([])
+  //countries = signal<RESTCountry[]>([])
 
   onSearch(query: string) {
 
+    if (this.isLoading()) return;
+    this.isLoading.set(false);
+    this.isError.set(null);
+
+
     this.countryService.searchByCapital(query).
       subscribe({
-        next: (resp:any) => {
-          this.isLoading.set(false);
+        next: (resp) => {
+
           this.countries.set(resp)
-          //this.countries.set(resp)
           //this.countries = resp.data.objects;
           //const c = CountryMapper.mapRestCountryArrayToCountryArray(resp.data.objects)
 
@@ -42,6 +48,6 @@ export class ByCapitalPageComponent {
           console.error(err);
         }
       });
-    }
+  }
 
 }
