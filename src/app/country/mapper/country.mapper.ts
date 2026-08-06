@@ -5,7 +5,6 @@ export class CountryMapper {
 
   //toma un restCountry viene de la api y regresa: country
     static fromRestCountry(country: Country): CountryProyect {
-
       console.log('objeto recibido:', country)
       const result = {
         capitals: country.capitals.join(','),
