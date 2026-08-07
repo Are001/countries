@@ -18,7 +18,10 @@
         <td><img [src]="country.flagUrlSvg" [alt]="country.name" width="40"></td>
         <td>{{country.name}}</td>
          <td>{{country.capitals}}</td>
-         <td>{{country.population }}</td>
+         <span class="badge badge-secondary">
+          <td>{{country.population | number}}</td>
+         </span>
+
          <td><a class="link-primary cursor-pointer" >Más información.</a></td>
       </tr>
       } @empty {

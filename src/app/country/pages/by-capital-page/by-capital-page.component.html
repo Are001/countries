@@ -1,7 +1,15 @@
 
 <country-search-input placeholder="Bucar capita."
- (value)="onSearch($event)"></country-search-input>
-<country-list [countries]="countries()" ></country-list>
+ (value)="query.set($event)"></country-search-input>
+
+@if(countryRecurso.error()){
+  <h3>{{ countryRecurso.error() }}</h3>
+
+}@if(countryRecurso.hasValue()) {
+
+<country-list [countries]="countryRecurso.value()!" ></country-list>
+
+}
 
 
 

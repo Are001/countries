@@ -30,7 +30,7 @@ export class CountryMapper {
 
   //recibir un arreglo de restCountry regresar un arreglo de nuestro pais-
   static mapRestCountryArrayToCountryArray(restCountries: RESTCountry): CountryProyect[] {
-    console.log('Array recibido:', restCountries);
+    //console.log('Array recibido:', restCountries);
     return restCountries.data.objects.map(this.fromRestCountry);
   }
 

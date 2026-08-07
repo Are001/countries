@@ -1,9 +1,9 @@
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { map, Observable, tap } from 'rxjs';
+import { map, Observable, catchError, throwError } from 'rxjs';
 import { Country, RESTCountry } from '../interfaces/restCountry';
-import type{ CountryProyect } from '../interfaces/countryProyect.interface';
+import type { CountryProyect } from '../interfaces/countryProyect.interface';
 import { CountryMapper } from '../mapper/country.mapper';
 
 const API_URL = 'https://api.restcountries.com/countries/v5';
@@ -18,7 +18,7 @@ export class CountryService {
 
 
 
-  searchByCapital(query: string): Observable<CountryProyect []> {
+  searchByCapital(query: string): Observable<CountryProyect[]> {
     query = query.toLocaleLowerCase();
 
     const headers = new HttpHeaders({
@@ -27,11 +27,16 @@ export class CountryService {
 
     return this.http.get<RESTCountry>(
 
-   //return this.http.get<Country []>(
+      //return this.http.get<Country []>(
       `${API_URL}/capitals?q=${encodeURIComponent(query)}`, { headers }
     ).pipe(
 
-      map( restCountries =>CountryMapper.mapRestCountryArrayToCountryArray(restCountries))
+      map(restCountries => CountryMapper.mapRestCountryArrayToCountryArray(restCountries)),
+      catchError(error => {
+        console.log('Error fetching', error);
+        return throwError(() => new Error(`No se pudo obtener países con esa capita: ${query}`)
+        );
+      })
     );
 
   }
