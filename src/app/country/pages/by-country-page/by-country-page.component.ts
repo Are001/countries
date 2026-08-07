@@ -7,7 +7,7 @@ import { KeyValuePipe } from '@angular/common';
 
 @Component({
   selector: 'app-by-country-page',
-  imports: [SearchInputComponent, ListComponent, KeyValuePipe],
+  imports: [SearchInputComponent, KeyValuePipe],
   templateUrl: './by-country-page.component.html',
   styleUrl: './by-country-page.component.css'
 })

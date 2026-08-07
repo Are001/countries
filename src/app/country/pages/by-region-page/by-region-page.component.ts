@@ -5,7 +5,7 @@ import { Country, RESTCountry } from '../../interfaces/restCountry';
 
 @Component({
   selector: 'app-by-region-page',
-  imports: [ListComponent],
+  //imports: [ListComponent],
   templateUrl: './by-region-page.component.html',
   styleUrl: './by-region-page.component.css'
 })
