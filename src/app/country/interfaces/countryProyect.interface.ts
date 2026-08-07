@@ -1,7 +1,7 @@
 export interface CountryProyect{
   uuid:string;
   flagUrlSvg: string;
-  namesCommon: string;
+  name: string;
   capitals:string;
   population: number
 
