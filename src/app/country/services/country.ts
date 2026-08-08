@@ -13,9 +13,9 @@ const API_KEY = 'rc_live_02b25cc0179a47e4a81772c33d31a904'
 @Injectable({
   providedIn: 'root',
 })
+
 export class CountryService {
   private http = inject(HttpClient);
-
 
 
   searchByCapital(query: string): Observable<CountryProyect[]> {
@@ -39,6 +39,10 @@ export class CountryService {
       })
     );
 
+  }
+
+  searchCountry(){
+    //la busqueda de paises la vamos a subir en la rama de Beto
   }
 
 
