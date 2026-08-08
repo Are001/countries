@@ -42,6 +42,7 @@ export class CountryService {
   }
 
   searchCountry(query:string){
+  
     //la busqueda de paises la vamos a subir en la rama de Beto
   }
 
