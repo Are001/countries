@@ -43,6 +43,29 @@ export class CountryService {
 
   searchCountry(query:string){
     //la busqueda de paises la vamos a subir en la rama de Beto
+    query = query.toLocaleLowerCase();
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${API_KEY}`
+    });
+
+    return this.http.get<RESTCountry>(
+
+      //return this.http.get<Country []>(
+      `${API_URL}/names.common/${encodeURIComponent(query)}`, { headers }
+
+    ).pipe(
+
+       map(restCountries =>
+        CountryMapper.mapRestCountryArrayToCountryArray(restCountries)),
+      //console.log('REST Countries:', restCountries)),
+
+       catchError(error => {
+         console.log('Error fetching', error);
+         return throwError(() => new Error(`No se pudo obtener países con esa capita: ${query}`)
+         );
+      })
+    );
   }
 
 
