@@ -13,7 +13,6 @@ import { KeyValuePipe } from '@angular/common';
 })
 export class ByCountryPageComponent {
   countries: Country[] = []
-
   numeros = signal([3, 2, 8, 1, 5, 1]);
 
   ordenar(numeros: number[]): void {
