@@ -22,7 +22,9 @@
           <td>{{country.population | number}}</td>
          </span>
 
-         <td><a class="link-primary cursor-pointer" >Más información.</a></td>
+         <td><a
+          [routerLink]="['/country/by', country.uuid]"
+          class="link-primary cursor-pointer" >Más información.</a></td>
       </tr>
       } @empty {
       }

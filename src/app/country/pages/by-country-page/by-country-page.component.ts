@@ -28,6 +28,7 @@ export class ByCountryPageComponent {
     }
   })
 
+  // vamos a probar el stash //oculto.
   // countries: Country[] = []
 
   // numeros = signal([3, 2, 8, 1, 5, 1]);
