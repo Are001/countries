@@ -1,7 +1,7 @@
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { map, Observable, catchError, throwError } from 'rxjs';
+import { map, Observable, catchError, throwError,delay } from 'rxjs';
 import { Country, RESTCountry } from '../interfaces/restCountry';
 import type { CountryProyect } from '../interfaces/countryProyect.interface';
 import { CountryMapper } from '../mapper/country.mapper';
@@ -32,6 +32,7 @@ export class CountryService {
     ).pipe(
 
       map(restCountries => CountryMapper.mapRestCountryArrayToCountryArray(restCountries)),
+      delay(300),
       catchError(error => {
         console.log('Error fetching', error);
         return throwError(() => new Error(`No se pudo obtener países con esa capita: ${query}`)
@@ -57,7 +58,8 @@ export class CountryService {
     ).pipe(
 
        map(restCountries =>
-        CountryMapper.mapRestCountryArrayToCountryArray(restCountries)),
+        CountryMapper.mapRestCountryArrayToCountryArray(restCountries),
+        console.log('countries.length:', )),
       //console.log('REST Countries:', restCountries)),
 
        catchError(error => {

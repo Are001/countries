@@ -12,5 +12,13 @@ import { RouterLink } from "@angular/router";
   styleUrl: './list.component.css'
 })
 export class ListComponent {
- countries = input.required<CountryProyect[]>();
+  countries = input.required<CountryProyect[]>();
+
+ errorMessage = input<string | null | unknown>();
+ isLoading = input<boolean>(false);
+ isEmpty = input<boolean>(false);
+
+
+
+
 }

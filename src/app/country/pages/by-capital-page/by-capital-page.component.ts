@@ -3,7 +3,8 @@ import { SearchInputComponent } from "../../../shared/components/search-input/se
 import { ListComponent } from "../../list/list.component";
 import { CountryService } from '../../services/country';
 import { CountryProyect } from '../../interfaces/countryProyect.interface';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, of } from 'rxjs';
+import {rxResource} from '@angular/core/rxjs-interop'
 
 
 @Component({
@@ -16,15 +17,25 @@ export class ByCapitalPageComponent {
 
   countryService = inject(CountryService);
   query = signal('');
-  countryRecurso = resource({
+
+  countryRecurso = rxResource({
     request: () => ({ query: this.query() }),
-    loader: async ({ request }) => {
-      if (!request.query) return [];
-      return await firstValueFrom(
-        this.countryService.searchByCapital(request.query)
-      )
+    loader:  ({ request }) => {
+      if (!request.query) return of ([]);
+     // return await firstValueFrom(
+       return this.countryService.searchByCapital(request.query)
+      //)
     }
   })
+  // countryRecurso = resource({
+  //   request: () => ({ query: this.query() }),
+  //   loader: async ({ request }) => {
+  //     if (!request.query) return [];
+  //     return await firstValueFrom(
+  //       this.countryService.searchByCapital(request.query)
+  //     )
+  //   }
+  // })
 
   // isLoading = signal(false);
   // //countries = signal<RESTCountry>()

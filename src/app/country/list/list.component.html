@@ -26,7 +26,27 @@
           [routerLink]="['/country/by', country.uuid]"
           class="link-primary cursor-pointer" >Más información.</a></td>
       </tr>
-      } @empty {
+      }
+      @if (errorMessage()){
+        <tr>
+          <td [colSpan]="8" class="text-center">
+            {{errorMessage()}}
+          </td>
+        </tr>
+      }
+      @if((countries.length===0) && !isLoading( ) ){
+        <tr>
+          <td [colSpan]="8" class="text-center">
+            No se encontraron resultados.
+          </td>
+        </tr>
+      }
+      @if(isLoading()){
+        <tr>
+          <td colspan="8" class="text-center">
+            Buscando
+          </td>
+        </tr>
       }
 
     </tbody>
