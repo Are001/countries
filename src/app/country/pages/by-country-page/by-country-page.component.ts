@@ -15,6 +15,7 @@ import { firstValueFrom } from 'rxjs';
 })
 export class ByCountryPageComponent {
 
+
   countryService = inject(CountryService);
   query = signal('');
   countryRecurso = resource({
