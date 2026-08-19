@@ -1,7 +1,6 @@
 import { Component, inject, effect, signal } from '@angular/core';
 import { SearchInputComponent } from "../../../shared/components/search-input/search-input.component";
 import { ListComponent } from "../../list/list.component";
-import { Country, RESTCountry } from '../../interfaces/restCountry';
 import { CountryService } from '../../services/country';
 import { firstValueFrom, of } from 'rxjs';
 import { rxResource } from '@angular/core/rxjs-interop';
