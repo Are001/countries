@@ -1,9 +1,10 @@
-import { Component, inject, resource, signal } from '@angular/core';
+import { Component, inject, effect, signal } from '@angular/core';
 import { SearchInputComponent } from "../../../shared/components/search-input/search-input.component";
 import { ListComponent } from "../../list/list.component";
 import { Country, RESTCountry } from '../../interfaces/restCountry';
 import { CountryService } from '../../services/country';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, of } from 'rxjs';
+import { rxResource } from '@angular/core/rxjs-interop';
 
 
 @Component({
@@ -15,18 +16,34 @@ import { firstValueFrom } from 'rxjs';
 export class ByCountryPageComponent {
 
 
+  // countryService = inject(CountryService);
+  // query = signal('');
+  // countryRecurso = resource({
+  //   request: () => ({ query: this.query() }),
+  //   loader: async ({ request }) => {
+  //     if (!request.query) return [];
+  //     return await firstValueFrom(
+  //       this.countryService.searchCountry(request.query)
+  //     )
+
+  //   }
+  // })
   countryService = inject(CountryService);
   query = signal('');
-  countryRecurso = resource({
+  countryRecurso = rxResource({
     request: () => ({ query: this.query() }),
-    loader: async ({ request }) => {
-      if (!request.query) return [];
-      return await firstValueFrom(
-        this.countryService.searchCountry(request.query)
-      )
+    loader:  ({ request }) => {
+      if (!request.query) return of([]);
+      //return await firstValueFrom(
+        console.log(request.query)
+        return this.countryService.searchCountry(request.query)
+     //)
+
 
     }
-  })
+
+
+  });
 
   // vamos a probar el stash //oculto.
   // countries: Country[] = []
