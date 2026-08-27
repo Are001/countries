@@ -13,6 +13,7 @@ export class CountryMapper {
       name: rCountry.names.translations['spa'].common ,
       capitals: rCountry.capitals[0]?.name ?? '',
       population: rCountry.population,
+      codes_alpha_2: rCountry.codes.alpha_2,
     };
     //   //console.log('objeto transformado:', result)
     //

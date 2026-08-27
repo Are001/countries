@@ -34,7 +34,6 @@ export class ByCountryPageComponent {
     loader:  ({ request }) => {
       if (!request.query) return of([]);
       //return await firstValueFrom(
-        console.log(request.query)
         return this.countryService.searchCountry(request.query)
      //)
 

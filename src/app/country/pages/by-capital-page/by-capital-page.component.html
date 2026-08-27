@@ -2,14 +2,18 @@
 <country-search-input placeholder="Bucar capital."
  (value)="query.set($event)"></country-search-input>
 
-@if(countryRecurso.error()){
+<!-- @if(!countryRecurso.hasValue()){
   <h3>{{ countryRecurso.error() }}</h3>
 
 }@if(countryRecurso.hasValue()) {
 
 <country-list [countries]="countryRecurso.value()!" ></country-list>
 
-}
+} -->
+<country-list [countries]="countryRecurso.value() ?? []"
+[errorMessage]="countryRecurso.error()"
+[isEmpty]="countryRecurso.value()?.length===0"
+[isLoading]="countryRecurso.isLoading()"></country-list>
 
 
 
