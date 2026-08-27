@@ -3,7 +3,8 @@ export interface CountryProyect{
   flagUrlSvg: string;
   name: string;
   capitals:string;
-  population: number
+  population: number;
+  codes_alpha_2: string;
 
 
 }

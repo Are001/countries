@@ -1,7 +1,7 @@
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { map, Observable, catchError, throwError,delay } from 'rxjs';
+import { map, Observable, catchError, throwError, delay } from 'rxjs';
 import { Country, RESTCountry } from '../interfaces/restCountry';
 import type { CountryProyect } from '../interfaces/countryProyect.interface';
 import { CountryMapper } from '../mapper/country.mapper';
@@ -35,43 +35,42 @@ export class CountryService {
       delay(300),
       catchError(error => {
         console.log('Error fetching', error);
-        return throwError(() => new Error(`No se pudo obtener países con esa capita: ${query}`)
+        return throwError(() => new Error(`No se pudo obtener países con esa capital: ${query}`)
         );
       })
     );
 
   }
 
-  searchCountry(query:string){
-    //la busqueda de paises la vamos a subir en la rama de Beto
+  searchCountry(query: string) {
     query = query.toLocaleLowerCase();
 
     const headers = new HttpHeaders({
       Authorization: `Bearer ${API_KEY}`
     });
-
+    console.log(`${API_URL}/names.common?q=${encodeURIComponent(query)}`);
     return this.http.get<RESTCountry>(
 
       //return this.http.get<Country []>(
-      `${API_URL}/names.common/${encodeURIComponent(query)}`, { headers }
+      //`${API_URL}/capitals?q=${encodeURIComponent(query)}`, { headers }
+      `${API_URL}/names.common?q=${encodeURIComponent(query)}`, { headers }
 
     ).pipe(
 
-       map(restCountries =>
+      map(restCountries =>
         CountryMapper.mapRestCountryArrayToCountryArray(restCountries),
-        console.log('countries.length:', )),
+        console.log('countries.length:',)),
       //console.log('REST Countries:', restCountries)),
 
-       catchError(error => {
-         console.log('Error fetching', error);
-         return throwError(() => new Error(`No se pudo obtener países con esa capita: ${query}`)
-         );
+      catchError(error => {
+        console.log('Error fetching', error);
+        return throwError(() => new Error(`No se pudo obtener país ${query}`)
+        );
       })
     );
   }
-searchCountryByAlphaCode(code:string){
-    //la busqueda de paises la vamos a subir en la rama de Beto
 
+  searchCountryByAlphaCode(code: string) {
 
     const headers = new HttpHeaders({
       Authorization: `Bearer ${API_KEY}`
@@ -80,21 +79,17 @@ searchCountryByAlphaCode(code:string){
     return this.http.get<RESTCountry>(
 
       //return this.http.get<Country []>(
-      `${API_URL}/alpha/${encodeURIComponent(code)}`, { headers }
-
-    ).pipe(
-
-       map(restCountries =>
-        CountryMapper.mapRestCountryArrayToCountryArray(restCountries),
-        console.log('countries.length:', )),
-      //console.log('REST Countries:', restCountries)),
-
-       catchError(error => {
-         console.log('Error fetching', error);
-         return throwError(() => new Error(`No se pudo obtener países con esa capita: ${code}`)
-         );
-      })
-    );
+      `${API_URL}/codes.alpha_2/${encodeURIComponent(code)}`, { headers })
+      .pipe(
+        map((restCountries) => CountryMapper.mapRestCountryArrayToCountryArray(restCountries)),
+        map((countries) => countries.at(0)),
+        catchError((error) => {
+          console.log('Error fetching', error);
+          return throwError(
+            () => new Error(`No se pudo obtener países con esa capita: ${code}`)
+          );
+        })
+      );
   }
 
 }

@@ -18,15 +18,27 @@ export class ByCapitalPageComponent {
   countryService = inject(CountryService);
   query = signal('');
 
-  countryRecurso = rxResource({
-    request: () => ({ query: this.query() }),
-    loader:  ({ request }) => {
-      if (!request.query) return of ([]);
-     // return await firstValueFrom(
-       return this.countryService.searchByCapital(request.query)
-      //)
-    }
-  })
+countryRecurso = rxResource({
+  request:()=>({query: this.query()}),
+  loader: ({request})=>{
+    console.log(this.countryService.searchByCapital(request.query));
+    if (!request.query) return of ([]);
+    return this.countryService.searchByCapital(request.query);
+  }
+
+})
+
+  //Resource es nuevo en angular, aqui se manejan promesas
+  // countryRecurso = resource({
+  //   request: () => ({ query: this.query() }),
+  //   loader: async({ request }) => {
+  //     if (!request.query) return [];
+  //     return await firstValueFrom(
+  //       this.countryService.searchByCapital(request.query)
+  //     )
+  //   }
+  // })
+
   // countryRecurso = resource({
   //   request: () => ({ query: this.query() }),
   //   loader: async ({ request }) => {
