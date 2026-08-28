@@ -7,6 +7,7 @@ import { CountryInformationComponent } from "./country-information/country-infor
 
 @Component({
   selector: 'app-country-page',
+  //imports: [NotFoundComponent, CountryInformationComponent],
   imports: [NotFoundComponent, CountryInformationComponent],
   templateUrl: './country-page.component.html',
   styleUrl: './country-page.component.css'
