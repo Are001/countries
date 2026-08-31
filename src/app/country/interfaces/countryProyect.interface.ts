@@ -6,5 +6,6 @@ export interface CountryProyect{
   population: number;
   codes_alpha_2: string;
 
-
+  region: string;
+  subRegion: string;
 }
