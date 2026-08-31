@@ -14,6 +14,8 @@ export class CountryMapper {
       capitals: rCountry.capitals[0]?.name ?? '',
       population: rCountry.population,
       codes_alpha_2: rCountry.codes.alpha_2,
+      region : rCountry.region,
+      subRegion: rCountry.subregion
     };
     //   //console.log('objeto transformado:', result)
     //

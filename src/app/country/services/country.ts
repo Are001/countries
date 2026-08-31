@@ -75,7 +75,7 @@ export class CountryService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${API_KEY}`
     });
-
+    console.log(`${API_URL}/codes.alpha_2/${encodeURIComponent(code)}`);
     return this.http.get<RESTCountry>(
 
       //return this.http.get<Country []>(
