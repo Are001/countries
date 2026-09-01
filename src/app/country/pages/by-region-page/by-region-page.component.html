@@ -1,1 +1,19 @@
-<!-- <country-list [countries]="countries"></country-list> -->
+
+<h1 class="text-2xl">Seleccione región.</h1>
+<section class="row mt-2">
+  <div class="flex-col">
+    @for (region of regions; track region ) {
+      <button class="btn mr-2 btn-outline w-[100px]"
+      (click)="selRegion.set(region)"
+      [class.btn-primary]="selRegion() === region"
+      >
+        {{region}}
+      </button>
+    }
+  </div>
+</section>
+
+<country-list [countries]="countryRecRegion.value() ?? []"
+[errorMessage]="countryRecRegion.error()"
+[isEmpty]="countryRecRegion.value()?.length===0"
+[isLoading]="countryRecRegion.isLoading()"></country-list>
