@@ -19,7 +19,7 @@ export class ByCapitalPageComponent {
 
   countryService = inject(CountryService);
   activatedRoute = inject(ActivatedRoute);
-  queryParam = this.activatedRoute.snapshot.queryParamMap.get('quety') ?? '';
+  queryParam = this.activatedRoute.snapshot.queryParamMap.get('query') ?? '';
   query = linkedSignal(()=>this.queryParam);
 
 countryRecurso = rxResource({

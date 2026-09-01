@@ -9,14 +9,15 @@ import { timeout } from 'rxjs';
 })
 export class SearchInputComponent {
   placeholder =input('Buscar');
-  value  = output<string>();
-  debounceTime = input(300);
+
+  debounceTime = input(1000);
   iValue = input<string>();
+   value  = output<string>();
   inputValue = linkedSignal<string>(()=>this.iValue() ??'');
 
   debounceEffect = effect((onCleanup)=>{
     const value = this.inputValue();
-
+    this.inputValue.set
     const timeout = setTimeout(()=>{
       this.value.emit(value);
     }, this.debounceTime());
