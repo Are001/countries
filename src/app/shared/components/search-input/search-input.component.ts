@@ -1,4 +1,4 @@
-import { Component, effect, input, output, signal } from '@angular/core';
+import { Component, effect, input, linkedSignal, output, signal } from '@angular/core';
 import { timeout } from 'rxjs';
 
 @Component({
@@ -11,7 +11,8 @@ export class SearchInputComponent {
   placeholder =input('Buscar');
   value  = output<string>();
   debounceTime = input(300);
-  inputValue = signal<string>('');
+  iValue = input<string>();
+  inputValue = linkedSignal<string>(()=>this.iValue() ??'');
 
   debounceEffect = effect((onCleanup)=>{
     const value = this.inputValue();

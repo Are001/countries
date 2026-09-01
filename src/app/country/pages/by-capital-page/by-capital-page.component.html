@@ -1,7 +1,7 @@
 
 <country-search-input placeholder="Bucar capital."
  (value)="query.set($event)"
- [debounceTime]="300"></country-search-input>
+ [debounceTime]="300" [iValue]="query()" ></country-search-input>
 
 <!-- @if(!countryRecurso.hasValue()){
   <h3>{{ countryRecurso.error() }}</h3>
