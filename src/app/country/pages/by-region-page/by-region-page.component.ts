@@ -36,9 +36,7 @@ export class ByRegionPageComponent {
   CountryService = inject(CountryService)
   activatedRoute = inject(ActivatedRoute);
   //queryParam = (this.activatedRoute.snapshot.queryParamMap.get('region') ?? '') as region;
-
   selRegion = signal<Region | null>(null);
-
   countryRecRegion = rxResource({
     request:()=>({region:this.selRegion()}),
     loader:({request})=>{
