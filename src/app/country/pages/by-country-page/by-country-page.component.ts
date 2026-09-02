@@ -1,9 +1,10 @@
-import { Component, inject, effect, signal } from '@angular/core';
+import { Component, inject, effect, signal, linkedSignal } from '@angular/core';
 import { SearchInputComponent } from "../../../shared/components/search-input/search-input.component";
 import { ListComponent } from "../../list/list.component";
 import { CountryService } from '../../services/country';
 import { firstValueFrom, of } from 'rxjs';
 import { rxResource } from '@angular/core/rxjs-interop';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -27,13 +28,23 @@ export class ByCountryPageComponent {
 
   //   }
   // })
+  router = inject(Router)
   countryService = inject(CountryService);
-  query = signal('');
+
+  activatedRoute = inject(ActivatedRoute);
+  queryParam = this.activatedRoute.snapshot.queryParamMap.get('query') ?? '';
+
+  query = linkedSignal(()=> this.queryParam);
   countryRecurso = rxResource({
     request: () => ({ query: this.query() }),
     loader:  ({ request }) => {
       if (!request.query) return of([]);
       //return await firstValueFrom(
+      this.router.navigate(['/country/by-country'],{
+        queryParams:{
+          query: request.query
+        }
+      })
         return this.countryService.searchCountry(request.query)
      //)
 

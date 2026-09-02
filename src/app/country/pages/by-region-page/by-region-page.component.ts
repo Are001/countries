@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, linkedSignal, signal } from '@angular/core';
 import { ListComponent } from "../../list/list.component";
 import { Country, RESTCountry } from '../../interfaces/restCountry';
 import { CountryService } from '../../services/country';
@@ -6,6 +6,7 @@ import { rxResource } from '@angular/core/rxjs-interop';
 import { of } from 'rxjs';
 import { SubRegionComponent } from "./sub-region/sub-region.component";
 import { Region } from '../../interfaces/region';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -27,19 +28,28 @@ export class ByRegionPageComponent {
     'Antartida'
   ];
 
-  selRegion = signal<Region|null>(null);
 
 
 
   //countries : Country[]=[]
+  router = inject(Router)
   CountryService = inject(CountryService)
+  activatedRoute = inject(ActivatedRoute);
+  queryParam = (this.activatedRoute.snapshot.queryParamMap.get('region') ?? '') as region;
 
+  selRegion = linkedSignal<Region>(()=> this.queryParam ?? 'America');
 
   countryRecRegion = rxResource({
     request:()=>({region:this.selRegion()}),
     loader:({request})=>{
       console.log(request);
       if(!request.region) return of([]);
+      this.router.navigate(['/country/by-region'],{
+        queryParams:{
+          region: request.region
+        }
+      })
+
       return this.CountryService.searchByRegion(request.region)
     }
   })
