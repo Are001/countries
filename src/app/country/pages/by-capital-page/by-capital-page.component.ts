@@ -4,7 +4,7 @@ import { ListComponent } from "../../list/list.component";
 import { CountryService } from '../../services/country';
 import { CountryProyect } from '../../interfaces/countryProyect.interface';
 import { firstValueFrom, of } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {rxResource} from '@angular/core/rxjs-interop'
 
 
@@ -17,6 +17,7 @@ import {rxResource} from '@angular/core/rxjs-interop'
 })
 export class ByCapitalPageComponent {
 
+  router= inject(Router)
   countryService = inject(CountryService);
   activatedRoute = inject(ActivatedRoute);
   queryParam = this.activatedRoute.snapshot.queryParamMap.get('query') ?? '';
@@ -26,8 +27,14 @@ countryRecurso = rxResource({
   request:()=>({query: this.query()}),
   loader: ({request})=>{
     //console.log(this.countryService.searchByCapital(request.query));
-    console.log({query: request.query})
+    //console.log({query: request.query})
     if (!request.query) return of ([]);
+    this.router.navigate(['/country/by-capital'],{
+     queryParams:{
+      query: request.query
+     },
+
+    });
     return this.countryService.searchByCapital(request.query);
   }
 

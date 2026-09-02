@@ -1,5 +1,6 @@
 
-<country-search-input (value)="query.set($event)" placeholder="Bucar país." ></country-search-input>
+<country-search-input (value)="query.set($event)"
+placeholder="Bucar país." [iValue]="query()"></country-search-input>
 <!-- @if(countryRecurso.error()){
   <h3>{{ countryRecurso.error() }}</h3>
 
