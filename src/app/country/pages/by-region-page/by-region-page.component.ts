@@ -8,7 +8,18 @@ import { SubRegionComponent } from "./sub-region/sub-region.component";
 import { Region } from '../../interfaces/region';
 import { ActivatedRoute, Router } from '@angular/router';
 
-
+function validarQueryParam(queryParam:string):Region{
+  queryParam = queryParam.toLowerCase();
+  const validRegions: Record<string, Region>={
+    africa: 'Africa',
+    america: 'America',
+    asia: 'Asia',
+    europa: 'Europa',
+    oceania: 'Oceania',
+    antantica: 'Antartida'
+  }
+  return validRegions[queryParam] ?? 'America'
+}
 @Component({
   selector: 'app-by-region-page',
   //imports: [ListComponent],
@@ -35,8 +46,8 @@ export class ByRegionPageComponent {
   router = inject(Router)
   CountryService = inject(CountryService)
   activatedRoute = inject(ActivatedRoute);
-  //queryParam = (this.activatedRoute.snapshot.queryParamMap.get('region') ?? '') as region;
-  selRegion = signal<Region | null>(null);
+  queryParam = this.activatedRoute.snapshot.queryParamMap.get('region') ?? '';
+  selRegion = linkedSignal<Region>(()=> validarQueryParam(this.queryParam));
   countryRecRegion = rxResource({
     request:()=>({region:this.selRegion()}),
     loader:({request})=>{
