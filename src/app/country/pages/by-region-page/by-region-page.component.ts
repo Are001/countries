@@ -35,10 +35,8 @@ export class ByRegionPageComponent {
   router = inject(Router)
   CountryService = inject(CountryService)
   activatedRoute = inject(ActivatedRoute);
-  queryParam = (this.activatedRoute.snapshot.queryParamMap.get('region') ?? '') as region;
-
-  selRegion = linkedSignal<Region>(()=> this.queryParam ?? 'America');
-
+  //queryParam = (this.activatedRoute.snapshot.queryParamMap.get('region') ?? '') as region;
+  selRegion = signal<Region | null>(null);
   countryRecRegion = rxResource({
     request:()=>({region:this.selRegion()}),
     loader:({request})=>{
